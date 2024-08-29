@@ -43,6 +43,10 @@ info:
     version: "1.0.0"
 
 
+redisConfig:
+  host: "REDIS_PRODUCT"
+  port: 6379
+
 build:
   version: "1.0"
 

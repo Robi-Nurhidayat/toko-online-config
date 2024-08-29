@@ -36,11 +36,21 @@ eureka:
     serviceUrl:
       defaultZone: "http://localhost:8070/eureka/"
 
+
+
+
+redisConfig:
+  host: "localhost"
+  port: 6370
+
+
+
 info:
   app:
     name: "products"
     description: "Toko online products Application"
     version: "1.0.0"
+
 
 build:
   version: "3.0"

@@ -1,3 +1,74 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5434/user
+    username: user
+    password: user
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        boot:
+          allow_jdbc_metadata_access: false
+
+
+  servlet:
+    multipart:
+      max-file-size: 1MB
+      max-request-size: 1MB
+  cloud:
+    function:
+      definition: updateCommunication
+#      kalau function lebih dari satu, dan independen arti nya kira kirim atau terima masing2 tidak barengan
+#    definition: updateCommunication; sendXX, funcAAa
+    stream:
+      bindings:
+        updateCommunication-in-0:
+          destination: communication-sent
+          group: ${spring.application.name}
+        sendCommunication-out-0:
+          destination: send-communication
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    connection-timeout: 10s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  info:
+    env:
+      enabled: true
+
+eureka:
+  instance:
+    preferIpAddress: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: "http://localhost:8070/eureka/"
+
+info:
+  app:
+    name: "users"
+    description: "Toko online users Application"
+    version: "1.0.0"
+
 build:
   version: "3.0"
 
